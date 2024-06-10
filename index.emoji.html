@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: blue;
+
+        }
+        .face{
+            background-color: #ffcd00;
+            position: relative;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+
+        }
+        .face::before{
+            content: "";
+            background: #b57700;
+            width: 150px;
+            height: 70px;
+            position: absolute;
+            top:180px;
+            border-bottom-left-radius: 70px;
+            border-bottom-right-radius: 70px;
+            transition: 0.5s;
+
+        }
+        .face:hover::before{
+            top:210;
+            background: #b57700;
+            height: 20px;
+            width: 150px;
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 0px;
+        }
+        .eyes{
+            position: relative;
+            top:-40px;
+            display:flex;
+        }
+        .eyes .eye{
+            background: #fff;
+            width: 80px;
+            height: 80px;
+            position: relative;
+            border-radius: 50%;
+            margin: 0 15px;
+        }
+        .eyes .eye::before{
+            content: "";
+            background: #333;
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            top:50%;
+            border-radius: 50%;
+            left:25px;
+            transform: translate(-50%,-50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="face">
+        <div class="eyes">
+        <div class="eye"></div>
+        <div class="eye"></div>
+        </div>
+    </div>
+
+
+    <script>
+  document.querySelector("body").addEventListener("mousemove", eyeball);
+
+function eyeball(event) {
+    var eyes = document.querySelectorAll(".eye");
+    eyes.forEach(function(eye) {
+        let x = eye.getBoundingClientRect().left + eye.clientWidth / 2;
+        let y = eye.getBoundingClientRect().top + eye.clientHeight / 2; // Use clientHeight instead of clientWidth here
+
+        let radian = Math.atan2(event.pageX - x, event.pageY - y); // Correct the variables here
+
+        let rotation = radian * (180 / Math.PI) * -1 + 270;
+        eye.style.transform = "rotate(" + rotation + "deg)"; // Correct the variable here
+    });
+}
+
+    </script>
+</body>
+</html>
